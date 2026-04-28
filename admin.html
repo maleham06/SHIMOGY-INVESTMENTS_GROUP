@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+     
+        body {
+            background-image: url('images/graph.jpg') !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-color: #0a4a6e !important;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body::before, body::after {
+            display: none !important;
+            content: none !important;
+        }
+        
+     
+        .admin-layout {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - 80px);
+        }
+        
+      
+        .admin-sidebar {
+            width: 280px;
+            background: rgba(5, 45, 65, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0, 229, 255, 0.3);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-header {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-header h3 {
+            color: #84ffff;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .sidebar-header p {
+            color: #e0f7fa;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #e0f7fa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+        
+        .sidebar-menu a:hover {
+            background: rgba(0, 229, 255, 0.1);
+            border-left-color: #00e5ff;
+            color: #84ffff;
+        }
+        
+        .sidebar-menu a.active {
+            background: rgba(0, 229, 255, 0.15);
+            border-left-color: #00e5ff;
+            color: #84ffff;
+        }
+        
+        .sidebar-menu a i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-menu .menu-divider {
+            height: 1px;
+            background: rgba(0, 229, 255, 0.2);
+            margin: 1rem 1.5rem;
+        }
+        
+        /* ========== MAIN CONTENT AREA ========== */
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            overflow-x: auto;
+        }
+        
+        /* ========== STATS CARDS ========== */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(10, 74, 110, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            transition: 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00e5ff;
+            background: rgba(10, 74, 110, 0.6);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffd700;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            color: #e0f7fa;
+        }
+        
+        /* ========== PANELS ========== */
+        .admin-panel {
+            background: rgba(10, 74, 110, 0.35);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            margin-bottom: 2rem;
+        }
+        
+        .admin-panel h3 {
+            color: #84ffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* ========== NOTIFICATIONS ========== */
+        .notification-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #00e5ff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .notification-item:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+        
+        .notification-unread {
+            border-left: 3px solid #ff5252;
+            background: rgba(255, 82, 82, 0.1);
+        }
+        
+        .notification-time {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-top: 0.3rem;
+        }
+        
+        /* ========== TABLES ========== */
+        .member-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        .member-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .member-table th, .member-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .member-table th {
+            color: #84ffff;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .status-active { background: rgba(0, 230, 118, 0.2); color: #00e676; }
+        .status-pending { background: rgba(255, 152, 0, 0.2); color: #ff9800; }
+        
+        /* ========== FORMS ========== */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: #84ffff;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: #00e5ff; }
+        
+        /* ========== BUTTONS ========== */
+        .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0.2rem; }
+        .btn-danger { background: linear-gradient(95deg, #c0392b, #e74c3c); }
+        .btn-success { background: linear-gradient(95deg, #1e7e34, #27ae60); }
+        
+        /* ========== TABS ========== */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #e0f7fa;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .tab-btn.active { background: #00e5ff; color: #0a4a6e; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* ========== SLOT & GROUP ITEMS ========== */
+        .slot-item, .group-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.8rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ========== LOGIN CONTAINER ========== */
+        .login-wrapper {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .password-field { position: relative; }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #00e5ff;
+        }
+        
+        .security-note {
+            background: rgba(255, 152, 0, 0.15);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-top: 1rem;
+            color: #ffcc80;
+        }
+        
+        /* ========== FOOTER ========== */
+        .main-content {
+            flex: 1;
+        }
+        
+        footer {
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                width: 80px;
+            }
+            .sidebar-header h3, .sidebar-header p, .sidebar-menu a span {
+                display: none;
+            }
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 12px;
+            }
+            .sidebar-menu a i {
+                margin: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                display: flex;
+                overflow-x: auto;
+            }
+            .sidebar-menu {
+                display: flex;
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+            .sidebar-menu li {
+                margin-bottom: 0;
+            }
+            .sidebar-header {
+                display: none;
+            }
+            .admin-main {
+                padding: 1rem;
+            }
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="images/logo2.jpg" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+            <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="admin.html" class="active">Admin</a>
+            <a href="dashboard.html">My Dashboard</a>
+            <div class="account-icon" id="logoutBtn" onclick="logout()" style="display: none;"><i class="fas fa-sign-out-alt"></i></div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content">
+    <!-- Login Section -->
+    <div id="loginSection" class="login-wrapper">
+        <div class="glass-card login-container">
+            <div class="logo-placeholder" style="margin: 0 auto 1.5rem auto; width: 70px; height: 70px; font-size: 2rem;">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2><i class="fas fa-lock"></i> Admin Login</h2>
+            <p style="margin-bottom: 1.5rem;">Enter your credentials to access the dashboard</p>
+            <div class="form-group">
+                <label>Username / Email</label>
+                <input type="text" id="adminUsername" placeholder="Enter admin username" value="admin@shimogy.com">
+            </div>
+            <div class="form-group password-field">
+                <label>Password</label>
+                <input type="password" id="adminPassword" placeholder="Enter password">
+                <span class="toggle-password" onclick="togglePassword()"><i class="fas fa-eye"></i></span>
+            </div>
+            <button class="btn-gold" style="width: 100%;" onclick="login()"><i class="fas fa-sign-in-alt"></i> Login to Dashboard</button>
+            <div class="security-note"><i class="fas fa-shield-alt"></i> Secure Admin Area | Default Password: shimogy123</div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content (Hidden until login) -->
+    <div id="dashboardContent" style="display: none;">
+        <div class="admin-layout">
+            <!-- SIDEBAR MENU -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-chart-line"></i> SHIMOGY Admin</h3>
+                    <p>Control Panel</p>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showTab('members'); return false;" class="active" id="menu-members">
+                        <i class="fas fa-users"></i> <span>Members</span>
+                    </a></li>
+                    <li><a href="#" onclick="showTab('investments'); return false;" id="menu-investments">
+                        <i class="fas fa-chart-line"></i> <span>Investments</span>
+                    </a></li>
+                    <li><a href="#" onclick="showTab('cycles'); return false;" id="menu-cycles">
+                        <i class="fas fa-sync-alt"></i> <span>Cycles</span>
+                    </a></li>
+                    <li><a href="#" onclick="showTab('slots'); return false;" id="menu-slots">
+                        <i class="fas fa-ticket-alt"></i> <span>Slots</span>
+                    </a></li>
+                    <li><a href="#" onclick="showTab('groups'); return false;" id="menu-groups">
+                        <i class="fas fa-layer-group"></i> <span>Groups</span>
+                    </a></li>
+                    <li><div class="menu-divider"></div></li>
+                    <li><a href="#" onclick="showTab('createUser'); return false;" id="menu-createUser">
+                        <i class="fas fa-user-plus"></i> <span>Create User</span>
+                    </a></li>
+                    <li><a href="#" onclick="showTab('settings'); return false;" id="menu-settings">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                    <li><div class="menu-divider"></div></li>
+                    <li><a href="#" onclick="showChangePasswordModal(); return false;">
+                        <i class="fas fa-key"></i> <span>Change Password</span>
+                    </a></li>
+                    <li><a href="#" onclick="logout(); return false;">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+                </ul>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main class="admin-main">
+                <!-- Stats Cards -->
+                <div class="admin-stats">
+                    <div class="stat-card"><div class="stat-number" id="totalMembers">0</div><div class="stat-label">Total Members</div></div>
+                    <div class="stat-card"><div class="stat-number" id="activeInvestments">0</div><div class="stat-label">Active Investments</div></div>
+                    <div class="stat-card"><div class="stat-number" id="totalInvested">UGX 0</div><div class="stat-label">Total Invested</div></div>
+                    <div class="stat-card"><div class="stat-number" id="pendingRequests">0</div><div class="stat-label">Pending Requests</div></div>
+                </div>
+
+                <!-- Quick Actions Panel -->
+                <div class="admin-panel">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn-gold" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh Data</button>
+                        <button class="btn-gold btn-success" onclick="exportData()"><i class="fas fa-download"></i> Export Report</button>
+                        <button class="btn-gold btn-danger" onclick="clearAllNotifications()"><i class="fas fa-trash"></i> Clear Notifications</button>
+                    </div>
+                </div>
+
+                <!-- Notifications Panel -->
+                <div class="admin-panel">
+                    <h3><i class="fas fa-bell"></i> Live Notifications <span id="notificationCount" style="background:#ff5252; padding:2px 8px; border-radius:20px; font-size:12px; margin-left:10px;">0</span></h3>
+                    <div id="notificationsList" style="max-height: 300px; overflow-y: auto;"></div>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="admin-panel">
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="showTab('members')">👥 Members</button>
+                        <button class="tab-btn" onclick="showTab('investments')">📈 Investments</button>
+                        <button class="tab-btn" onclick="showTab('cycles')">🔄 Cycles</button>
+                        <button class="tab-btn" onclick="showTab('slots')">🎯 Slots</button>
+                        <button class="tab-btn" onclick="showTab('groups')">👥 Groups</button>
+                        <button class="tab-btn" onclick="showTab('createUser')">➕ Create User</button>
+                        <button class="tab-btn" onclick="showTab('settings')">⚙️ Settings</button>
+                    </div>
+
+                    <div id="membersTab" class="tab-content active">
+                        <div class="member-table">
+                            <table>
+                                <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+                                <tbody id="membersTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="investmentsTab" class="tab-content">
+                        <div class="member-table">
+                            <table>
+                                <thead><tr><th>Member</th><th>Investment</th><th>Amount</th><th>Expected Return</th><th>Status</th><th>Date</th></tr></thead>
+                                <tbody id="investmentsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="cyclesTab" class="tab-content">
+                        <div id="cyclesList"></div>
+                        <div class="form-group" style="margin-top:1rem;">
+                            <label>Add New Cycle</label>
+                            <input type="text" id="newCycleGroupName" placeholder="Cycle Name">
+                            <input type="number" id="newCycleContribution" placeholder="Contribution Amount">
+                            <button class="btn-gold" style="margin-top:0.5rem;" onclick="addCycle()">Add Cycle</button>
+                        </div>
+                    </div>
+
+                    <div id="slotsTab" class="tab-content">
+                        <div id="slotsList"></div>
+                        <div class="form-group" style="margin-top:1rem;">
+                            <label>Add Investment Slots</label>
+                            <select id="slotInvestmentSelect"></select>
+                            <input type="number" id="slotCount" placeholder="Number of slots to add">
+                            <button class="btn-gold" style="margin-top:0.5rem;" onclick="addSlots()">Add Slots</button>
+                        </div>
+                    </div>
+
+                    <div id="groupsTab" class="tab-content">
+                        <div id="groupsList"></div>
+                        <div class="form-group" style="margin-top:1rem;">
+                            <label>Create New Group</label>
+                            <input type="text" id="newGroupName" placeholder="Group Name">
+                            <input type="number" id="newGroupSize" placeholder="Max Members">
+                            <button class="btn-gold" style="margin-top:0.5rem;" onclick="createGroup()">Create Group</button>
+                        </div>
+                    </div>
+
+                    <div id="createUserTab" class="tab-content">
+                        <div class="form-group"><label>Full Name</label><input type="text" id="newUserName" placeholder="Enter full name"></div>
+                        <div class="form-group"><label>Phone Number</label><input type="tel" id="newUserPhone" placeholder="Enter phone number"></div>
+                        <div class="form-group"><label>Email (Optional)</label><input type="email" id="newUserEmail" placeholder="Enter email"></div>
+                        <div class="form-group"><label>Initial Deposit (UGX)</label><input type="number" id="newUserDeposit" placeholder="Initial investment amount"></div>
+                        <div class="form-group"><label>Assign to Group</label><select id="newUserGroup"></select></div>
+                        <button class="btn-gold" onclick="createUserAccount()"><i class="fas fa-user-plus"></i> Create Member Account</button>
+                    </div>
+
+                    <div id="settingsTab" class="tab-content">
+                        <div class="form-group"><label>Current Admin Username</label><input type="text" id="currentUsername" readonly style="background:rgba(0,0,0,0.5);"></div>
+                        <div class="form-group"><label>New Username (Optional)</label><input type="text" id="newUsername" placeholder="Enter new username"></div>
+                        <div class="form-group"><label>Current Password</label><input type="password" id="verifyCurrentPassword" placeholder="Enter current password"></div>
+                        <div class="form-group"><label>New Password</label><input type="password" id="newPassword" placeholder="Enter new password"></div>
+                        <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmNewPassword" placeholder="Confirm new password"></div>
+                        <button class="btn-gold" onclick="updateAdminCredentials()"><i class="fas fa-save"></i> Update Credentials</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3><i class="fas fa-key"></i> Change Admin Password</h3>
+        <div class="form-group"><label>Current Password</label><input type="password" id="modalCurrentPassword"></div>
+        <div class="form-group"><label>New Password</label><input type="password" id="modalNewPassword"></div>
+        <div class="form-group"><label>Confirm New Password</label><input type="password" id="modalConfirmPassword"></div>
+        <div style="display:flex; gap:1rem; margin-top:1rem;">
+            <button class="btn-gold" onclick="updatePasswordFromModal()">Update Password</button>
+            <button class="btn-outline" onclick="closePasswordModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div><h3>Location</h3><p>Kampala, Kawempe, Uganda</p></div>
+        <div><h3>Contact</h3><p>0752259416</p><p>0746788042</p></div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Admin Dashboard</p>
+</footer>
+
+<script src="admin-script.js"></script>
+<script>
+    // Enhanced tab switching with menu highlighting
+    function showTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        // Show selected tab
+        document.getElementById(`${tabName}Tab`).classList.add('active');
+        
+        // Highlight corresponding menu item
+        document.querySelectorAll('.sidebar-menu a').forEach(link => link.classList.remove('active'));
+        const menuItem = document.getElementById(`menu-${tabName}`);
+        if (menuItem) menuItem.classList.add('active');
+        
+        // Also highlight the tab button if it exists
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(tabName.toLowerCase()) || 
+                (tabName === 'createUser' && btn.textContent.includes('Create')) ||
+                (tabName === 'settings' && btn.textContent.includes('Settings'))) {
+                btn.classList.add('active');
+            }
+        });
+        
+        // Update URL hash
+        window.location.hash = tabName;
+    }
+    
+    // Handle hash on load
+    document.addEventListener('DOMContentLoaded', function() {
+        const hash = window.location.hash.substring(1);
+        if (hash && ['members', 'investments', 'cycles', 'slots', 'groups', 'createUser', 'settings'].includes(hash)) {
+            showTab(hash);
+        }
+    });
+</script>
+</body>
+</html>

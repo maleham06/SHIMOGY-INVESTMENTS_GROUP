@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | My Dashboard - Client Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>      
+        
+        body::before, 
+        body::after {
+            display: none !important;
+            content: none !important;
+        }
+        
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        
+        footer {
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        
+        .login-wrapper {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modern-login-card {
+            background: linear-gradient(135deg, rgba(10, 74, 110, 0.95), rgba(26, 110, 143, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 480px;
+            border: 1px solid rgba(0, 188, 212, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 188, 212, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .modern-login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 188, 212, 0.3);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00bcd4, #4dd0e1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 30px rgba(0, 188, 212, 0.5);
+            animation: ripple 2s infinite;
+        }
+        
+        .login-icon i {
+            font-size: 2.5rem;
+            color: #0a4a6e;
+        }
+        
+        @keyframes ripple {
+            0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.5); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 188, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
+        }
+        
+        .login-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #4dd0e1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-header p {
+            color: #b8e4f5;
+            font-size: 0.9rem;
+        }
+        
+        /* Modern Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4dd0e1;
+            letter-spacing: 0.5px;
+        }
+        
+        .input-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-field i {
+            position: absolute;
+            left: 16px;
+            color: #00bcd4;
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+        
+        .input-field input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid rgba(0, 188, 212, 0.3);
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            color: #0a4a6e;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field input:focus {
+            border-color: #00bcd4;
+            box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.2);
+            background: white;
+        }
+        
+        .input-field input::placeholder {
+            color: #9aaebf;
+            font-weight: 400;
+        }
+        
+        /* Password Toggle Button */
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            cursor: pointer;
+            color: #00bcd4;
+            font-size: 1.1rem;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #4dd0e1;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(95deg, #00bcd4, #4dd0e1);
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0a4a6e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.5);
+            background: linear-gradient(95deg, #4dd0e1, #00bcd4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Security Note */
+        .security-note {
+            background: rgba(255, 152, 0, 0.15);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            color: #ffcc80;
+        }
+        
+        .security-note i {
+            margin-right: 5px;
+        }
+        
+        /* Dashboard Content Styles */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(0, 188, 212, 0.15), rgba(10, 74, 110, 0.3));
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 188, 212, 0.4);
+        }
+        
+        .live-earnings {
+            background: rgba(0, 230, 118, 0.1);
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid #00e676;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .live-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff5252;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .earnings-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #00e676;
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+        }
+        
+        .progress-card {
+            background: rgba(45, 139, 176, 0.25);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 188, 212, 0.4);
+        }
+        
+        .progress-card h3 {
+            color: #4dd0e1;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(95deg, #00bcd4, #4dd0e1);
+            border-radius: 20px;
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: rgba(45, 139, 176, 0.25);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(0, 188, 212, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-3px);
+        }
+        
+        .stat-box i {
+            font-size: 2rem;
+            color: #4dd0e1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .investment-item {
+            background: rgba(10, 74, 110, 0.5);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .investment-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .return-badge {
+            background: rgba(0, 230, 118, 0.15);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            color: #00e676;
+            font-size: 0.8rem;
+        }
+        
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(0, 188, 212, 0.2);
+            transition: background 0.2s ease;
+        }
+        
+        .activity-item:hover {
+            background: rgba(0, 188, 212, 0.1);
+        }
+        
+        /* Password Change Section */
+        .password-change-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 188, 212, 0.3);
+        }
+        
+        .password-change-section input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.8rem;
+            outline: none;
+        }
+        
+        .password-change-section input:focus {
+            border-color: #00bcd4;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 0 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modern-login-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<video autoplay muted loop playsinline id="bg-video">
+        <source src="images/waterbg.mp4" type="video/mp4"> waterfall Loading
+    </video>
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="images/logo2.jpg" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+            <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="investments.html">Investments</a>
+            <a href="cycles.html">Cycles</a>
+            <a href="savings.html">Savings</a>
+            <a href="loans.html">Loans</a>
+            <a href="updates.html">Updates</a>
+            <a href="about.html">About Us</a>
+            <a href="dashboard.html" class="active">My Dashboard</a>
+            <div class="account-icon" id="logoutBtn" onclick="logout()" style="display: none;"><i class="fas fa-sign-out-alt"></i></div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content">
+    <!-- Modern Login Section -->
+    <div id="loginSection" class="login-wrapper">
+        <div class="modern-login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Login to access your investment dashboard</p>
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-phone-alt"></i> Phone Number</label>
+                <div class="input-field">
+                    <i class="fas fa-phone-alt"></i>
+                    <input type="tel" id="clientPhone" placeholder="Enter your registered phone number" autocomplete="off">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <div class="input-field">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="clientPassword" placeholder="Enter your password">
+                    <span class="password-toggle" onclick="toggleClientPassword()">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <button class="login-btn" id="loginButton" onclick="clientLogin()">
+                <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+            </button>
+            
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i> 
+                <strong>Secure Login</strong> | Default password: Last 4 digits of your phone number<br>
+                Contact admin if you don't have credentials
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content (Hidden until login) -->
+    <div id="dashboardContent" style="display: none;">
+        <div class="dashboard-container">
+            <!-- Welcome Section -->
+            <div class="welcome-card">
+                <h2>Welcome, <span id="memberName">Member</span>!</h2>
+                <p>Your financial journey with SHIMOGY Investment Group</p>
+                <small>Member since: <span id="memberSince"></span></small>
+            </div>
+            
+            <!-- Live Earnings -->
+            <div class="live-earnings">
+                <div class="live-badge">LIVE</div>
+                <div><i class="fas fa-chart-line" style="font-size: 2rem; color: #00bcd4;"></i></div>
+                <div class="earnings-number" id="liveEarnings">UGX 0</div>
+                <div class="earnings-label">Daily Earnings (Real-time)</div>
+                <div style="font-size: 0.7rem; margin-top: 0.5rem;" id="lastUpdated">Last updated: Just now</div>
+            </div>
+            
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <i class="fas fa-wallet"></i>
+                    <div class="stat-value" id="totalInvested">UGX 0</div>
+                    <div>Total Invested</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="stat-value" id="totalReturns">UGX 0</div>
+                    <div>Expected Returns</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-percent"></i>
+                    <div class="stat-value" id="roi">0%</div>
+                    <div>ROI</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-value" id="activeCount">0</div>
+                    <div>Active Investments</div>
+                </div>
+            </div>
+            
+            <!-- Investment Progress -->
+            <div class="progress-card">
+                <h3><i class="fas fa-chart-pie"></i> My Investments Progress</h3>
+                <div id="investmentsList"></div>
+            </div>
+            
+            <!-- Cycle Participation -->
+            <div class="progress-card">
+                <h3><i class="fas fa-users"></i> My Cycles</h3>
+                <div id="cyclesList"></div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="progress-card">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <div id="activityList"></div>
+            </div>
+            
+            <!-- Account Settings -->
+            <div class="progress-card">
+                <h3><i class="fas fa-key"></i> Account Settings</h3>
+                <div class="password-change-section">
+                    <input type="password" id="newClientPassword" placeholder="Enter new password">
+                    <input type="password" id="confirmClientPassword" placeholder="Confirm new password">
+                    <button class="btn-gold" style="width: 100%;" onclick="changeClientPassword()">
+                        <i class="fas fa-save"></i> Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER - AT THE VERY BOTTOM -->
+<footer>
+    <div class="footer-grid">
+        <div><h3>Location</h3><p>Kampala, Kawempe, Uganda</p></div>
+        <div><h3>Support</h3><p>0752259416</p><p>support@shimogy.com</p></div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Member Dashboard</p>
+</footer>
+
+<script src="dashboard-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | Home - Smart Investment Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="images/waterbg.mp4" type="video/mp4"> waterfall Loading
+    </video>
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+    <img src="images/logobg.png" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+    <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+    <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="investments.html">Investments</a>
+            <a href="cycles.html">Cycles</a>
+            <a href="savings.html">Savings</a>
+            <a href="loans.html">Loans</a>
+            <a href="updates.html">Updates</a>
+            <a href="about.html">About Us</a>
+            <a href="dashboard.html">My Dashboard</a>
+            <div class="account-icon" onclick="showAccessModal()"><i class="fas fa-user-shield"></i></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="accessModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3><i class="fas fa-key"></i> Access Dashboard</h3>
+        <div style="display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap;">
+            <button class="btn-gold" style="flex: 1;" onclick="location.href='admin.html'">
+                <i class="fas fa-user-cog"></i> Admin Login
+            </button>
+            <button class="btn-gold" style="flex: 1; background: linear-gradient(95deg, #a8afaa, #dbdbdb);" onclick="location.href='dashboard.html'">
+                <i class="fas fa-user"></i> Client Login
+            </button>
+        </div>
+        <p style="font-size: 0.8rem; text-align: center;">Admin provides account credentials to clients</p>
+        <button class="btn-outline" style="width: 100%; margin-top: 1rem;" onclick="closeAccessModal()">Close</button>
+    </div>
+</div>
+
+<div class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="glass-card" style="max-width: 950px; margin: 0 auto; padding: 2.8rem; background: rgba(0,0,0,0.5);">
+        <div class="floating"><i class="fas fa-gem" style="font-size: 3rem; color: #FFD966;"></i></div>
+        <h1 class="hero-title">Money for more Money.<br>Nothing Changes if Nothing Changes!!</h1>
+        <p class="hero-subtitle">Take control of your financial journey with smart, strategic investments designed to grow your income steadily over time. Join a community focused on long-term success, stability, and real opportunities that turn ambition into achievement.</p>
+        <div style="margin: 2rem 0;">
+            <hr>
+            <h2 style="color:#FFD966; font-size: 1.8rem;">Smart Investing Starts With Bold Decisions And Clear Vision</h2>
+            <p style="margin-top: 1rem;">Step into a world where your money is actively working for you through carefully structured opportunities built for consistency and growth. Make confident moves today that shape a stronger, more secure financial future tomorrow.</p>
+        </div>
+        <a href="investments.html" class="btn-gold"><i class="fas fa-rocket"></i> Start Investing →</a>
+    </div>
+</div>
+
+<div style="padding: 2rem;">
+    <h2 style="text-align:center; margin-bottom: 1rem;">🔥 Trending Investment Opportunities</h2>
+    <div class="slider-container">
+        <div class="slider-track" id="sliderTrack"></div>
+    </div>
+</div>
+
+<!-- Dashboard Access Buttons Section -->
+<div style="padding: 2rem; text-align: center; background: rgba(0,0,0,0.2); margin: 2rem 0;">
+    <h2 style="color: #FFD966;">Access Your Dashboard</h2>
+    <p style="margin-bottom: 1.5rem;">Admin provides account credentials to access your personal dashboard</p>
+    <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-gold" onclick="location.href='admin.html'">
+            <i class="fas fa-user-cog"></i> Admin Dashboard
+        </button>
+        <button class="btn-gold" style="background: linear-gradient(95deg, #1e7e34, #27ae60);" onclick="location.href='dashboard.html'">
+            <i class="fas fa-user"></i> Client Dashboard
+        </button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>Location</h3>
+            <p>Kampala, Kawempe, Uganda</p>
+        </div>
+        <div>
+            <h3>Find us on:</h3>
+            <div class="icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/256752259416"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>@shimogy group</p>
+        </div>
+        <div>
+            <h3>Contact us</h3>
+            <p>0752259416</p>
+            <p>0746788042</p>
+        </div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Partners for Life</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    function showAccessModal() {
+        document.getElementById('accessModal').classList.add('active');
+    }
+    function closeAccessModal() {
+        document.getElementById('accessModal').classList.remove('active');
+    }
+</script>
+</body>
+</html>

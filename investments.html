@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | Investments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+               body {
+            background-image: url('images/partnership.jpg') !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-color: #0a4a6e !important;
+        }
+        
+        
+        body::before, 
+        body::after {
+            display: none !important;
+            content: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="images/logobg.png" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+            <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="investments.html" class="active">Investments</a>
+            <a href="cycles.html">Cycles</a>
+            <a href="savings.html">Savings</a>
+            <a href="loans.html">Loans</a>
+            <a href="updates.html">Updates</a>
+            <a href="about.html">About Us</a>
+            <a href="dashboard.html">My Dashboard</a>
+            <div class="account-icon" onclick="alert('🔐 Admin provides credentials')"><i class="fas fa-user-shield"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="page-header">
+    <h1><i class="fas fa-chart-simple"></i> Wealth Portfolios</h1>
+    <p>Select your investment plan — high returns, managed risk</p>
+</div>
+
+<div id="investmentsGrid" class="cards-grid"></div>
+
+<!-- INVESTMENT MODAL -->
+<div id="investModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 id="modalTitle"><i class="fas fa-pen-alt"></i> Investment Request</h3>
+        <input type="text" id="investName" placeholder="Full Name">
+        <input type="tel" id="investPhone" placeholder="Phone Number">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button id="investCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+            <button id="investSubmit" class="btn-gold">Submit Request</button>
+        </div>
+    </div>
+</div>
+
+<!-- CYCLE MODAL -->
+<div id="cycleModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 id="cycleModalTitle"><i class="fas fa-pen-alt"></i> Cycle Request</h3>
+        <input type="text" id="cycleName" placeholder="Full Name">
+        <input type="tel" id="cyclePhone" placeholder="Phone Number">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button id="cycleCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+            <button id="cycleSubmit" class="btn-gold">Submit Request</button>
+        </div>
+    </div>
+</div>
+
+<!-- SAVINGS MODAL -->
+<div id="savingsModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 id="savingsModalTitle"><i class="fas fa-pen-alt"></i> Account Opening</h3>
+        <input type="text" id="savingsName" placeholder="Full Name">
+        <input type="tel" id="savingsPhone" placeholder="Phone Number">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button id="savingsCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+            <button id="savingsSubmit" class="btn-gold">Submit Request</button>
+        </div>
+    </div>
+</div>
+
+<!-- LOAN MODAL -->
+<div id="loanModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3><i class="fas fa-pen-alt"></i> Loan Request</h3>
+        <input type="text" id="loanName" placeholder="Full Name">
+        <input type="tel" id="loanPhone" placeholder="Phone Number">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button id="loanCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+            <button id="loanSubmit" class="btn-gold">Submit Request</button>
+        </div>
+    </div>
+</div>
+
+<!-- ACCESS MODAL -->
+<div id="accessModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3><i class="fas fa-key"></i> Access Dashboard</h3>
+        <div style="display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap;">
+            <button class="btn-gold" style="flex: 1;" onclick="location.href='admin.html'">
+                <i class="fas fa-user-cog"></i> Admin Login
+            </button>
+            <button class="btn-gold" style="flex: 1; background: linear-gradient(95deg, #1e7e34, #27ae60);" onclick="location.href='dashboard.html'">
+                <i class="fas fa-user"></i> Client Login
+            </button>
+        </div>
+        <button class="btn-outline" style="width: 100%; margin-top: 1rem;" onclick="closeAccessModal()">Close</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>Location</h3>
+            <p>Kampala, Kawempe, Uganda</p>
+        </div>
+        <div>
+            <h3>Find us on:</h3>
+            <div class="icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/256752259416"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>@shimogy group</p>
+        </div>
+        <div>
+            <h3>Contact us</h3>
+            <p>0752259416</p>
+            <p>0746788042</p>
+        </div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Partners for Life</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    // Helper function to close access modal
+    function closeAccessModal() {
+        document.getElementById('accessModal').classList.remove('active');
+    }
+    
+    // Make sure modal is initialized after page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Re-render investments to ensure buttons work
+        if (typeof renderInvestments === 'function') {
+            renderInvestments();
+        }
+        
+        // Setup modal close on outside click
+        const modals = ['investModal', 'cycleModal', 'savingsModal', 'loanModal', 'accessModal'];
+        modals.forEach(modalId => {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            }
+        });
+        
+        // Setup button handlers
+        const investSubmit = document.getElementById('investSubmit');
+        const investCancel = document.getElementById('investCancel');
+        if (investSubmit) investSubmit.onclick = function() {
+            if (typeof window.submitInvestment === 'function') {
+                window.submitInvestment();
+            } else {
+                const name = document.getElementById('investName').value.trim();
+                const phone = document.getElementById('investPhone').value.trim();
+                if (name && phone) {
+                    alert(`✅ Investment request submitted! Admin will call ${phone} to confirm payment.`);
+                    document.getElementById('investModal').classList.remove('active');
+                } else {
+                    alert("Please fill in both name and phone number");
+                }
+            }
+        };
+        if (investCancel) investCancel.onclick = function() {
+            document.getElementById('investModal').classList.remove('active');
+        };
+    });
+</script>
+</body>
+</html>

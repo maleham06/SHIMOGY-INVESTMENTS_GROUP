@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | Cycles - Community Saving Groups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CLEAN BACKGROUND - Single source */
+        body {
+            background-image: url('images/bg3.png') !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-color: #0a4a6e !important;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Disable any conflicting pseudo-elements from CSS */
+        body::before, 
+        body::after {
+            display: none !important;
+            content: none !important;
+        }
+        
+        /* Main content wrapper - pushes footer down */
+        .main-content {
+            flex: 1;
+        }
+        
+        /* Footer stays at bottom */
+        footer {
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        /* Cycle card styles */
+        .cycle-card-with-image {
+            background: rgba(15, 40, 60, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.4s;
+        }
+        .cycle-card-with-image:hover {
+            transform: translateY(-5px);
+        }
+        .cycle-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        .cycle-body {
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="images/logo2.jpg" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+            <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="investments.html">Investments</a>
+            <a href="cycles.html" class="active">Cycles</a>
+            <a href="savings.html">Savings</a>
+            <a href="loans.html">Loans</a>
+            <a href="updates.html">Updates</a>
+            <a href="about.html">About Us</a>
+            <a href="dashboard.html">My Dashboard</a>
+            <div class="account-icon" onclick="alert('🔐 Admin provides credentials')"><i class="fas fa-user-shield"></i></div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content">
+    <div class="page-header">
+        <h1><i class="fas fa-users"></i> Active Cycles</h1>
+        <p>Community rotating savings — grow together with our Sacco groups</p>
+    </div>
+
+    <div id="cyclesGrid" class="cards-grid"></div>
+
+    <div class="create-cycle-area glass-card">
+        <h3>✨ Create Your Own Cycle ✨</h3>
+        <input type="text" id="newCycleName" placeholder="Cycle name (e.g., Golden Legacy Cycle)">
+        <input type="number" id="newCycleAmount" placeholder="Contribution amount">
+        <button class="btn-gold" onclick="window.createCycle()"><i class="fas fa-plus-circle"></i> Launch Cycle</button>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">Admins verify & activate instantly</p>
+    </div>
+
+    <!-- CYCLE MODAL -->
+    <div id="cycleModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="cycleModalTitle"><i class="fas fa-pen-alt"></i> Cycle Request</h3>
+            <input type="text" id="cycleName" placeholder="Full Name">
+            <input type="tel" id="cyclePhone" placeholder="Phone Number">
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button id="cycleCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+                <button id="cycleSubmit" class="btn-gold">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVESTMENT MODAL (for any investment links) -->
+    <div id="investModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalTitle"><i class="fas fa-pen-alt"></i> Investment Request</h3>
+            <input type="text" id="investName" placeholder="Full Name">
+            <input type="tel" id="investPhone" placeholder="Phone Number">
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button id="investCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+                <button id="investSubmit" class="btn-gold">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAVINGS MODAL -->
+    <div id="savingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="savingsModalTitle"><i class="fas fa-pen-alt"></i> Account Opening</h3>
+            <input type="text" id="savingsName" placeholder="Full Name">
+            <input type="tel" id="savingsPhone" placeholder="Phone Number">
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button id="savingsCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+                <button id="savingsSubmit" class="btn-gold">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOAN MODAL -->
+    <div id="loanModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3><i class="fas fa-pen-alt"></i> Loan Request</h3>
+            <input type="text" id="loanName" placeholder="Full Name">
+            <input type="tel" id="loanPhone" placeholder="Phone Number">
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button id="loanCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+                <button id="loanSubmit" class="btn-gold">Submit Request</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER - AT THE VERY BOTTOM -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>Location</h3>
+            <p>Kampala, Kawempe, Uganda</p>
+        </div>
+        <div>
+            <h3>Find us on:</h3>
+            <div class="icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/256752259416"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>@shimogy group</p>
+        </div>
+        <div>
+            <h3>Contact us</h3>
+            <p>0752259416</p>
+            <p>0746788042</p>
+        </div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Partners for Life</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Render cycles with images
+        if (typeof window.renderCyclesWithImages === 'function') {
+            window.renderCyclesWithImages();
+        } else if (typeof renderCycles === 'function') {
+            renderCycles();
+        }
+        
+        // Setup modal close handlers
+        const cycleModal = document.getElementById('cycleModal');
+        if (cycleModal) {
+            cycleModal.addEventListener('click', function(e) {
+                if (e.target === cycleModal) cycleModal.classList.remove('active');
+            });
+        }
+        
+        // Setup cycle button handlers
+        const cycleSubmit = document.getElementById('cycleSubmit');
+        const cycleCancel = document.getElementById('cycleCancel');
+        
+        if (cycleSubmit) {
+            cycleSubmit.onclick = function() {
+                if (typeof window.submitCycleJoin === 'function') {
+                    window.submitCycleJoin();
+                } else {
+                    const name = document.getElementById('cycleName').value.trim();
+                    const phone = document.getElementById('cyclePhone').value.trim();
+                    if (name && phone) {
+                        alert(`✅ Cycle request submitted! Admin will call ${phone} to confirm.`);
+                        document.getElementById('cycleModal').classList.remove('active');
+                    } else {
+                        alert("Please fill in both name and phone number");
+                    }
+                }
+            };
+        }
+        
+        if (cycleCancel) {
+            cycleCancel.onclick = function() {
+                document.getElementById('cycleModal').classList.remove('active');
+            };
+        }
+    });
+</script>
+</body>
+</html>

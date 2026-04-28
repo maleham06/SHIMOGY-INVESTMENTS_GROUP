@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIMOGY | Loans - Quick & Smart Loans</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CLEAN BACKGROUND - Single source */
+        body {
+            background-image: url('images/bg4.jpg') !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-color: #0a4a6e !important;
+        }
+        
+        /* Disable any conflicting pseudo-elements from CSS */
+        body::before, 
+        body::after {
+            display: none !important;
+            content: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="images/logobg.png" alt="SHIMOGY Logo" style="height: 70px; width: auto; border-radius: 8px;">
+            <div class="logo-placeholder"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><h1>SHIMOGY</h1><p>INVESTMENT GROUP</p></div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="investments.html">Investments</a>
+            <a href="cycles.html">Cycles</a>
+            <a href="savings.html">Savings</a>
+            <a href="loans.html" class="active">Loans</a>
+            <a href="updates.html">Updates</a>
+            <a href="about.html">About Us</a>
+            <a href="dashboard.html">My Dashboard</a>
+            <div class="account-icon" onclick="alert('🔐 Admin provides credentials')"><i class="fas fa-user-shield"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card" style="margin: 3rem auto; max-width: 750px; text-align: center; padding: 2.5rem;">
+    <h1 style="font-size: 2.2rem;"><i class="fas fa-hand-holding-usd"></i> Get a quick and smart loan now</h1>
+    <p style="font-size: 1.2rem; margin-bottom: 1rem;">with no collaterals.</p>
+    <button id="loanRequestBtn" class="btn-gold"><i class="fas fa-bolt"></i> Request Loan →</button>
+    <div id="loanEligibilityMsg" style="margin-top: 1.5rem;"></div>
+    <p style="margin-top: 1rem;"><i class="fas fa-check-circle"></i> Requirement: Active Savings or Investment account</p>
+</div>
+
+<div id="loanModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3><i class="fas fa-pen-alt"></i> Loan Request</h3>
+        <input type="text" id="loanName" placeholder="Full Name">
+        <input type="tel" id="loanPhone" placeholder="Phone Number">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button id="loanCancel" class="btn-outline" style="background:#444; border-color:#666;">Cancel</button>
+            <button id="loanSubmit" class="btn-gold">Submit</button>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER AT THE VERY END - Before closing body tag -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>Location</h3>
+            <p>Kampala, Kawempe, Uganda</p>
+        </div>
+        <div>
+            <h3>Find us on:</h3>
+            <div class="icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/256752259416"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>@shimogy group</p>
+        </div>
+        <div>
+            <h3>Contact us</h3>
+            <p>0752259416</p>
+            <p>0746788042</p>
+        </div>
+    </div>
+    <p>© 2026 Shimogy Investment Group - Partners for Life</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
