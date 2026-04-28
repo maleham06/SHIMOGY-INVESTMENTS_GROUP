@@ -1,14 +1,9 @@
-/* ============================================
-   SHIMOGY CLIENT DASHBOARD - MAIN SCRIPT
-   Fixed Login Functionality + Real-time Earnings
-   ============================================ */
-
 let currentMember = null;
 let earningsInterval = null;
 let memberInvestments = [];
 let memberCycles = [];
 
-// Client login function - FIXED
+
 function clientLogin() {
     console.log("Login function called");
     
